@@ -123,6 +123,21 @@ class Room(core_models.TimeStampedModel):
 
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
 
+    menu_1 = models.CharField(null=True, default="", max_length=140)
+    price_1 = models.IntegerField(null=True, default="")
+
+    menu_2 = models.CharField(null=True, default="", max_length=140)
+    price_2 = models.IntegerField(null=True, default="")
+
+    menu_3 = models.CharField(null=True, default="", max_length=140)
+    price_3 = models.IntegerField(null=True, default="")
+
+    menu_4 = models.CharField(null=True, default="", max_length=140)
+    price_4 = models.IntegerField(null=True, default="")
+
+    menu_5 = models.CharField(null=True, default="", max_length=140)
+    price_5 = models.IntegerField(null=True, default="")
+
     def __str__(self):
 
         return self.name
@@ -191,6 +206,3 @@ class Room(core_models.TimeStampedModel):
 
         return [this_month_cal]
 
-    def get_maps(self):
-        naver_map = room.getElementById('map')
-        return naver_map
