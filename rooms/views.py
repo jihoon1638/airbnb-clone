@@ -16,8 +16,6 @@ from users import mixins as user_mixins
 
 from . import models, forms
 
-from django.http import HttpResponse
-
 
 class HomeView(ListView):
 
@@ -79,12 +77,6 @@ class SearchView(View):
 
                 facilities = form.cleaned_data.get("facilities")
 
-                menu_1 = form.cleaned_data.get("menu_1")
-                menu_2 = form.cleaned_data.get("menu_2")
-                menu_3 = form.cleaned_data.get("menu_3")
-                menu_4 = form.cleaned_data.get("menu_4")
-                menu_5 = form.cleaned_data.get("menu_5")
-
                 filter_args = {}
 
                 if city != "Anywhere":
@@ -133,61 +125,6 @@ class SearchView(View):
 
                     filter_args["facilities"] = facility
 
-                if menu_1 != "Any_food":
-                    filter_args["menu__startswith"] = menu_1
-                if menu_1 != "Any_food":
-                    filter_args["menu__startswith"] = menu_2
-                if menu_1 != "Any_food":
-                    filter_args["menu__startswith"] = menu_3
-                if menu_1 != "Any_food":
-                    filter_args["menu__startswith"] = menu_4
-                if menu_1 != "Any_food":
-                    filter_args["menu__startswith"] = menu_5
-
-                if menu_2 != "Any_food":
-                    filter_args["menu__startswith"] = menu_1
-                if menu_2 != "Any_food":
-                    filter_args["menu__startswith"] = menu_2
-                if menu_2 != "Any_food":
-                    filter_args["menu__startswith"] = menu_3
-                if menu_2 != "Any_food":
-                    filter_args["menu__startswith"] = menu_4
-                if menu_2 != "Any_food":
-                    filter_args["menu__startswith"] = menu_5
-
-                if menu_3 != "Any_food":
-                    filter_args["menu__startswith"] = menu_1
-                if menu_3 != "Any_food":
-                    filter_args["menu__startswith"] = menu_2
-                if menu_3 != "Any_food":
-                    filter_args["menu__startswith"] = menu_3
-                if menu_3 != "Any_food":
-                    filter_args["menu__startswith"] = menu_4
-                if menu_3 != "Any_food":
-                    filter_args["menu__startswith"] = menu_5
-
-                if menu_4 != "Any_food":
-                    filter_args["menu__startswith"] = menu_1
-                if menu_4 != "Any_food":
-                    filter_args["menu__startswith"] = menu_2
-                if menu_4 != "Any_food":
-                    filter_args["menu__startswith"] = menu_3
-                if menu_4 != "Any_food":
-                    filter_args["menu__startswith"] = menu_4
-                if menu_4 != "Any_food":
-                    filter_args["menu__startswith"] = menu_5
-
-                if menu_5 != "Any_food":
-                    filter_args["menu__startswith"] = menu_1
-                if menu_5 != "Any_food":
-                    filter_args["menu__startswith"] = menu_2
-                if menu_5 != "Any_food":
-                    filter_args["menu__startswith"] = menu_3
-                if menu_5 != "Any_food":
-                    filter_args["menu__startswith"] = menu_4
-                if menu_5 != "Any_food":
-                    filter_args["menu__startswith"] = menu_5
-
                 qs = models.Room.objects.filter(**filter_args).order_by("-created")
 
                 paginator = Paginator(qs, 10, orphans=5)
@@ -232,15 +169,11 @@ class EditRoomView(user_mixins.LoggedInOnlyView, UpdateView):
         "facilities",
         "house_rules",
         "menu_1",
-        "price_1",
+        "menu_price_1",
         "menu_2",
-        "price_2",
+        "menu_price_2",
         "menu_3",
-        "price_3",
-        "menu_4",
-        "price_4",
-        "menu_5",
-        "price_5",
+        "menu_price_3",
     )
 
     def get_object(self, queryset=None):
@@ -282,7 +215,7 @@ def delete_photo(request, room_pk, photo_pk):
 
         if room.host.pk != user.pk:
 
-            messages.error(request, "Can't delete that photo")
+            messages.error(request, "Cant delete that photo")
 
         else:
 
@@ -352,4 +285,3 @@ class CreateRoomView(user_mixins.LoggedInOnlyView, FormView):
         messages.success(self.request, "Room Uploaded")
 
         return redirect(reverse("rooms:detail", kwargs={"pk": room.pk}))
-

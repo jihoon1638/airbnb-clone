@@ -63,7 +63,7 @@ class User(AbstractUser):
     )
 
     first_name = models.CharField(
-        _("first name"), max_length=30, blank=True
+        _("first name"), max_length=30, blank=True, default="Unnamed User"
     )
 
     avatar = models.ImageField(upload_to="avatars", blank=True)

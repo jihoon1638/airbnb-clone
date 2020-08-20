@@ -7,7 +7,7 @@ from core import models as core_models
 class BookedDay(core_models.TimeStampedModel):
 
     day = models.DateField()
-    reservation = models.ForeignKey("Reservation", on_delete=models.CASCADE)
+    reservation = models.ForeignKey("Reservation", null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Booked Day"
@@ -37,10 +37,10 @@ class Reservation(core_models.TimeStampedModel):
     check_in = models.DateField()
     check_out = models.DateField()
     guest = models.ForeignKey(
-        "users.User", related_name="reservations", on_delete=models.CASCADE
+        "users.User", null=True, related_name="reservations", on_delete=models.CASCADE
     )
     room = models.ForeignKey(
-        "rooms.Room", related_name="reservations", on_delete=models.CASCADE
+        "rooms.Room", null=True, related_name="reservations", on_delete=models.CASCADE
     )
 
     def __str__(self):

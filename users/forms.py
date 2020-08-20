@@ -3,13 +3,22 @@ from django import forms
 from . import models
 
 
+
+
+
 class LoginForm(forms.Form):
+
+
 
     email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email"}))
 
     password = forms.CharField(
+
         widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+
     )
+
+
 
     def clean(self):
 
@@ -34,7 +43,11 @@ class LoginForm(forms.Form):
             self.add_error("email", forms.ValidationError("User does not exist"))
 
 
+
+
+
 class SignUpForm(forms.ModelForm):
+
     class Meta:
 
         model = models.User
@@ -42,18 +55,30 @@ class SignUpForm(forms.ModelForm):
         fields = ("first_name", "last_name", "email")
 
         widgets = {
+
             "first_name": forms.TextInput(attrs={"placeholder": "First Name"}),
+
             "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
+
             "email": forms.EmailInput(attrs={"placeholder": "Email Name"}),
+
         }
 
+
+
     password = forms.CharField(
+
         widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+
     )
 
     password1 = forms.CharField(
+
         widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"})
+
     )
+
+
 
     def clean_email(self):
 
@@ -64,12 +89,16 @@ class SignUpForm(forms.ModelForm):
             models.User.objects.get(email=email)
 
             raise forms.ValidationError(
+
                 "That email is already taken", code="existing_user"
+
             )
 
         except models.User.DoesNotExist:
 
             return email
+
+
 
     def clean_password1(self):
 
@@ -84,6 +113,8 @@ class SignUpForm(forms.ModelForm):
         else:
 
             return password
+
+
 
     def save(self, *args, **kwargs):
 

@@ -83,6 +83,15 @@ class Room(core_models.TimeStampedModel):
 
     """ Room Model Definition """
 
+    menu_1 = models.TextField(null=True)
+    menu_price_1 = models.IntegerField(default=0)
+
+    menu_2 = models.TextField(null=True)
+    menu_price_2 = models.IntegerField(default=0)
+
+    menu_3 = models.TextField(null=True)
+    menu_price_3 = models.IntegerField(default=0)
+
     name = models.CharField(max_length=140)
 
     description = models.TextField()
@@ -122,21 +131,6 @@ class Room(core_models.TimeStampedModel):
     facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
 
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
-
-    menu_1 = models.CharField(null=True, default="", max_length=140)
-    price_1 = models.IntegerField(null=True, default="")
-
-    menu_2 = models.CharField(null=True, default="", max_length=140)
-    price_2 = models.IntegerField(null=True, default="")
-
-    menu_3 = models.CharField(null=True, default="", max_length=140)
-    price_3 = models.IntegerField(null=True, default="")
-
-    menu_4 = models.CharField(null=True, default="", max_length=140)
-    price_4 = models.IntegerField(null=True, default="")
-
-    menu_5 = models.CharField(null=True, default="", max_length=140)
-    price_5 = models.IntegerField(null=True, default="")
 
     def __str__(self):
 
@@ -204,5 +198,4 @@ class Room(core_models.TimeStampedModel):
 
         next_month_cal = Calendar(this_year, next_month)
 
-        return [this_month_cal]
-
+        return [this_month_cal, next_month_cal]

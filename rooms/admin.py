@@ -26,9 +26,11 @@ class PhotoInline(admin.TabularInline):
 
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
+
     """ Room Admin Definition """
 
     inlines = (PhotoInline,)
+
     fieldsets = (
         (
             "Basic Info",
@@ -46,6 +48,9 @@ class RoomAdmin(admin.ModelAdmin):
         ),
         ("Times", {"fields": ("check_in", "check_out", "instant_book")}),
         ("Spaces", {"fields": ("guests", "beds", "bedrooms", "baths")}),
+        ("Menu_1 And Price_1", {"fields": ("menu_1", "menu_price_1")}),
+        ("Menu_2 And Price_2", {"fields": ("menu_2", "menu_price_2")}),
+        ("Menu_3 And Price_3", {"fields": ("menu_3", "menu_price_3")}),
         (
             "More About the Space",
             {"fields": ("amenities", "facilities", "house_rules")},
@@ -83,10 +88,7 @@ class RoomAdmin(admin.ModelAdmin):
 
     raw_id_fields = ("host",)
 
-    search_fields = (
-        "=city",
-        "^host__username",
-    )
+    search_fields = ("=city", "^host__username")
 
     filter_horizontal = ("amenities", "facilities", "house_rules")
 

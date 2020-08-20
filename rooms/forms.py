@@ -40,11 +40,6 @@ class SearchForm(forms.Form):
         queryset=models.Facility.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
-    menu_1 = forms.CharField(initial="Any food")
-    menu_2 = forms.CharField(initial="Any food")
-    menu_3 = forms.CharField(initial="Any food")
-    menu_4 = forms.CharField(initial="Any food")
-    menu_5 = forms.CharField(initial="Any food")
 
 
 class CreatePhotoForm(forms.ModelForm):
@@ -75,7 +70,6 @@ class CreateRoomForm(forms.ModelForm):
             "description",
             "country",
             "city",
-            "price",
             "address",
             "guests",
             "beds",
@@ -89,15 +83,11 @@ class CreateRoomForm(forms.ModelForm):
             "facilities",
             "house_rules",
             "menu_1",
-            "price_1",
+            "menu_price_1",
             "menu_2",
-            "price_2",
+            "menu_price_2",
             "menu_3",
-            "price_3",
-            "menu_4",
-            "price_4",
-            "menu_5",
-            "price_5",
+            "menu_price_3",
         )
 
     def save(self, *args, **kwargs):
