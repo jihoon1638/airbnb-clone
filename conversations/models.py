@@ -1,5 +1,7 @@
 from django.db import models
 from core import models as core_models
+from django.db.utils import IntegrityError
+from django.db.utils import OperationalError
 
 
 class Conversation(core_models.TimeStampedModel):

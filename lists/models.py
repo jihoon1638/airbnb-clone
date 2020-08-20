@@ -1,6 +1,7 @@
 from django.db import models
 
 from core import models as core_models
+from django.db.utils import OperationalError
 
 
 class List(core_models.TimeStampedModel):
