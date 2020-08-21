@@ -1,117 +1,24 @@
 from django.core.management.base import BaseCommand
-
-from rooms.models import Amenity
-
-
-
+from rooms.models import Amenities
 
 
 class Command(BaseCommand):
 
-
-
-    help = "This command creates many users"
-
-
+    help = "This command creates amenities"
 
     def add_arguments(self, parser):
-
-        parser.add_argument("--number", help="How many users do you want to create")
-
-
+        parser.add_argument("--number", help="How many amenities do you want to create")
 
     def handle(self, *args, **options):
-
         amenities = [
-
-            "Air conditioning",
-
-            "Alarm Clock",
-
-            "Balcony",
-
-            "Bathroom",
-
-            "Bathtub",
-
-            "Bed Linen",
-
-            "Boating",
-
-            "Cable TV",
-
-            "Carbon monoxide detectors",
-
-            "Chairs",
-
-            "Children Area",
-
-            "Coffee Maker in Room",
-
-            "Cooking hob",
-
-            "Cookware & Kitchen Utensils",
-
-            "Dishwasher",
-
-            "Double bed",
-
-            "En suite bathroom",
-
-            "Free Parking",
-
-            "Free Wireless Internet",
-
-            "Freezer",
-
-            "Fridge / Freezer",
-
-            "Golf",
-
-            "Hair Dryer",
-
-            "Heating",
-
-            "Hot tub",
-
-            "Indoor Pool",
-
-            "Ironing Board",
-
-            "Microwave",
-
-            "Outdoor Pool",
-
-            "Outdoor Tennis",
-
-            "Oven",
-
-            "Queen size bed",
-
-            "Restaurant",
-
-            "Shopping Mall",
-
-            "Shower",
-
-            "Smoke detectors",
-
-            "Sofa",
-
-            "Stereo",
-
-            "Swimming pool",
-
-            "Toilet",
-
-            "Towels",
-
-            "TV",
-
+            "남녀 공용 화장실",
+            "바",
+            "애완견 환영",
+            "어린이 환영",
+            "어린이용 높은 의자",
+            "어린이용 보조 의자",
+            "화장실",
         ]
-
-        for a in amenities:
-
-            Amenity.objects.create(name=a)
-
-        self.stdout.write(self.style.SUCCESS("Amenities created!"))
+        for f in amenities:
+            Amenities.objects.create(name=f)
+        self.stdout.write(self.style.SUCCESS(f"{len(amenities)} amenities created!"))
