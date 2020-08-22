@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from rooms import models as room_models
+from restaurants import models as restaurant_models
 from reservations import models as reservation_models
 from . import forms, models, mixins
 
@@ -111,7 +111,8 @@ def kakao_callback(request):
         try:
             user = models.User.objects.get(email=email)
             if user.login_method != models.User.LOGING_KAKAO:
-                raise KakaoException(f"Please log in with: {user.login_method}")
+                raise KakaoException(
+                    f"Please log in with: {user.login_method}")
         except models.User.DoesNotExist:
             user = models.User.objects.create(
                 email=email,
@@ -202,11 +203,11 @@ def show_guest_reservation(request, *args, **kwargs):
 
 def show_host_reservation(request, *args, **kwargs):
     user = request.user
-    room = room_models.Room.objects.filter(host=user)
+    restaurant = restaurant_models.Restaurant.objects.filter(host=user)
     reservation = reservation_models.Reservation.objects.all()
 
     return render(
         request,
         "reservations/host_reservation.html",
-        {"reservation": reservation, "room": room},
+        {"reservation": reservation, "restaurant": restaurant},
     )

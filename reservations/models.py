@@ -39,12 +39,12 @@ class Reservation(core_models.TimeStampedModel):
     guest = models.ForeignKey(
         "users.User", related_name="reservations", on_delete=models.CASCADE
     )
-    room = models.ForeignKey(
-        "rooms.Room", related_name="reservations", on_delete=models.CASCADE
+    restaurant = models.ForeignKey(
+        "restaurants.Restaurant", related_name="reservations", on_delete=models.CASCADE
     )
 
     def __str__(self):
-        return f"{self.room} - {self.date}"
+        return f"{self.restaurant} - {self.date}"
 
     def in_progress(self):
         now = timezone.now().date()

@@ -4,7 +4,7 @@ from django.http import Http404
 from django.views.generic import View
 from django.contrib import messages
 from django.shortcuts import render, redirect, reverse
-from rooms import models as room_models
+from restaurants import models as restaurant_models
 from reviews import forms as review_forms
 from . import models
 
@@ -14,31 +14,35 @@ class CreateError(Exception):
 
 
 @login_required
-def create(request, room, year, month, day, time):
+def create(request, restaurant, year, month, day, time):
     try:
         date_obj = datetime.datetime(year, month, day)
-        room = room_models.Room.objects.get(pk=room)
-        models.BookedDay.objects.get(date=date_obj, time=time, reservation__room=room)
+        restaurant = restaurant_models.Restaurant.objects.get(pk=restaurant)
+        models.BookedDay.objects.get(
+            date=date_obj, time=time, reservation__restaurant=restaurant)
         raise CreateError()
-    except (room_models.Room.DoesNotExist, CreateError):
-        messages.error(request, "This is the time that has already been reserved.")
+    except (restaurant_models.Restaurant.DoesNotExist, CreateError):
+        messages.error(
+            request, "This is the time that has already been reserved.")
         return redirect(
             reverse(
                 "reservations:choose-time",
-                kwargs={"room": room.pk, "year": year, "month": month, "day": day},
+                kwargs={"restaurant": restaurant.pk, "year": year,
+                        "month": month, "day": day},
             )
         )
     except models.BookedDay.DoesNotExist:
         reservation = models.Reservation.objects.create(
-            guest=request.user, room=room, date=date_obj, time=time
+            guest=request.user, restaurant=restaurant, date=date_obj, time=time
         )
         return redirect(reverse("reservations:detail", kwargs={"pk": reservation.pk}))
 
 
 @login_required
-def choose_time(request, room, year, month, day):
+def choose_time(request, restaurant, year, month, day):
     lunchtime = ["11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00"]
-    dinnertime = ["17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00"]
+    dinnertime = ["17:00", "17:30", "18:00",
+                  "18:30", "19:00", "19:30", "20:00"]
     return render(
         request,
         "reservations/choose_time.html",
@@ -48,19 +52,19 @@ def choose_time(request, room, year, month, day):
             "year": year,
             "month": month,
             "day": day,
-            "room": room,
+            "restaurant": restaurant,
         },
     )
 
 
 class ReservationDetailView(View):
     def get(self, *args, **kwargs):
-        room_pk = kwargs.get("pk")
-        reservation = models.Reservation.objects.get_or_none(pk=room_pk)
+        restaurant_pk = kwargs.get("pk")
+        reservation = models.Reservation.objects.get_or_none(pk=restaurant_pk)
         print(reservation)
         if not reservation or (
             reservation.guest != self.request.user
-            and reservation.room.host != self.request.user
+            and reservation.restaurant.host != self.request.user
         ):
             raise Http404()
         form = review_forms.CreateReviewForm()
@@ -74,7 +78,7 @@ class ReservationDetailView(View):
 def edit_reservation(request, pk, verb):
     reservation = models.Reservation.objects.get_or_none(pk=pk)
     if not reservation or (
-        reservation.guest != request.user and reservation.room.host != request.user
+        reservation.guest != request.user and reservation.restaurant.host != request.user
     ):
         raise Http404()
     if verb == "confirm":

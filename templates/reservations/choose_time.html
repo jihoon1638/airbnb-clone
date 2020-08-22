@@ -10,12 +10,12 @@ Reservation
         <span>{{year}}-{{month}}-{{day}} Reservation</span>
         <span class="flex flex-col">Lunch Time</span>
         {% for time in lunchtime %}
-        <a href="{% url 'reservations:create' room year month day time %}">{{time}}</a>
+        <a href="{% url 'reservations:create' restaurant year month day time %}">{{time}}</a>
         {% endfor %}
 
         <span class="flex flex-col">Dinner Time</span>
         {% for time in dinnertime %}
-        <a href="{% url 'reservations:create' room year month day time %}">{{time}}</a>
+        <a href="{% url 'reservations:create' restaurant year month day time %}">{{time}}</a>
         {% endfor %}
 
     </div>

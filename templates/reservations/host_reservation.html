@@ -15,30 +15,30 @@
     <span class="flex flex-col">Reservations In Progress</span>
     <div class="flex flex-wrap -mx-40 mb-10">
         <div class="w-full mb-10 px-2">
-            {% for ro in room %}
+            {% for ro in restaurant %}
             {% for i in reservation %}
-            {% if ro.name == i.room.name %}
+            {% if ro.name == i.restaurant.name %}
             {% if not i.is_finished %}
-            <a href="{% url 'reservations:detail' i.room.pk %}">
+            <a href="{% url 'reservations:detail' i.restaurant.pk %}">
                 <div class="w-full h-64 bg-cover bg-center rounded-lg mb-2"
-                    style="background-image: url({{ro.room.first_photo}});">
+                    style="background-image: url({{ro.restaurant.first_photo}});">
                 </div>
                 <div class="flex justify-between mb-2">
                     <div class="w-4/5 truncate overflos-hidden flex">
-                        {% if ro.room.host.superhost %}
+                        {% if ro.restaurant.host.superhost %}
                         <span
                             class="mr-2 uppercase font-medium text-xs border border-black text-black rounded py-px px-1">superhost</span>
                         {% endif %}
-                        <span class="text-sm text-gray-600 block truncate font-light">{{ro.room.city}},
-                            {{ro.room.country.name}}</span>
+                        <span class="text-sm text-gray-600 block truncate font-light">{{ro.restaurant.city}},
+                            {{ro.restaurant.country.name}}</span>
                     </div>
                     <span class="text-sm flex items-center">
-                        <i class="fas fa-star text-red-500 text-xs mr-px"></i> {{ro.room.total_rating}}
+                        <i class="fas fa-star text-red-500 text-xs mr-px"></i> {{ro.restaurant.total_rating}}
                     </span>
 
                 </div>
                 <span class="text-black w-11/12 block truncate">
-                    {{i.room.name}}
+                    {{i.restaurant.name}}
                 </span>
                 <span class="flex flex-col">
                     Reservation Date : {{i.date}}
@@ -61,30 +61,30 @@
 
     <div class="flex flex-wrap -mx-40 mb-10">
         <div class="w-full mb-10 px-2">
-            {% for ro in room %}
+            {% for ro in restaurant %}
             {% for i in reservation %}
-            {% if ro.name == i.room.name %}
+            {% if ro.name == i.restaurant.name %}
             {% if i.is_finished %}
-            <a href="{% url 'reservations:detail' i.room.pk %}">
+            <a href="{% url 'reservations:detail' i.restaurant.pk %}">
                 <div class="w-full h-64 bg-cover bg-center rounded-lg mb-2"
-                    style="background-image: url({{ro.room.first_photo}});">
+                    style="background-image: url({{ro.restaurant.first_photo}});">
                 </div>
                 <div class="flex justify-between mb-2">
                     <div class="w-4/5 truncate overflos-hidden flex">
-                        {% if ro.room.host.superhost %}
+                        {% if ro.restaurant.host.superhost %}
                         <span
                             class="mr-2 uppercase font-medium text-xs border border-black text-black rounded py-px px-1">superhost</span>
                         {% endif %}
-                        <span class="text-sm text-gray-600 block truncate font-light">{{ro.room.city}},
-                            {{ro.room.country.name}}</span>
+                        <span class="text-sm text-gray-600 block truncate font-light">{{ro.restaurant.city}},
+                            {{ro.restaurant.country.name}}</span>
                     </div>
                     <span class="text-sm flex items-center">
-                        <i class="fas fa-star text-red-500 text-xs mr-px"></i> {{ro.room.total_rating}}
+                        <i class="fas fa-star text-red-500 text-xs mr-px"></i> {{ro.restaurant.total_rating}}
                     </span>
 
                 </div>
                 <span class="text-black w-11/12 block truncate">
-                    {{ro.room.name}}
+                    {{ro.restaurant.name}}
                 </span>
                 <span class="flex flex-col">
                     Reservation Date : {{i.date}}

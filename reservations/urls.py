@@ -5,15 +5,15 @@ app_name = "reservations"
 
 urlpatterns = [
     path(
-        "<int:room>/<int:year>-<int:month>-<int:day>/",
+        "<int:restaurant>/<int:year>-<int:month>-<int:day>/",
         views.choose_time,
         name="choose-time",
     ),
     path(
-        "<int:room>/<int:year>-<int:month>-<int:day>-<str:time>/",
+        "<int:restaurant>/<int:year>-<int:month>-<int:day>-<str:time>/",
         views.create,
         name="create",
     ),
-    path("<int:room>", views.ReservationDetailView.as_view(), name="detail",),
+    path("<int:restaurant>", views.ReservationDetailView.as_view(), name="detail",),
     path("<int:pk>/<str:verb>/", views.edit_reservation, name="edit"),
 ]
