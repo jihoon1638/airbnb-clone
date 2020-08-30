@@ -57,6 +57,10 @@ class RestaurantAdmin(admin.ModelAdmin):
         ("Times", {"fields": ("check_in", "check_out", "instant_book")}),
         ("Spaces", {"fields": ("guests", "baths")}),
         (
+            "Menues",
+            {"fields": ("menu_1", "price_1", "menu_2", "price_2", "menu_3", "price_3")},
+        ),
+        (
             "More About the Space",
             {
                 "fields": (
@@ -118,7 +122,7 @@ class RestaurantAdmin(admin.ModelAdmin):
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
 
-    """ Phot Admin Definition """
+    """ Photo Admin Definition """
 
     list_display = ("__str__", "get_thumbnail")
 

@@ -7,8 +7,7 @@ from . import forms
 def create_review(request, restaurant):
     if request.method == "POST":
         form = forms.CreateReviewForm(request.POST)
-        restaurant = restaurant_models.Restaurant.objects.get_or_none(
-            pk=restaurant)
+        restaurant = restaurant_models.Restaurant.objects.get_or_none(pk=restaurant)
         if not restaurant:
             return redirect(reverse("core:home"))
         if form.is_valid():

@@ -7,8 +7,7 @@ class Command(BaseCommand):
     help = "This command creates payments"
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            "--number", help="How many payments do you want to create")
+        parser.add_argument("--number", help="How many payments do you want to create")
 
     def handle(self, *args, **options):
         payments = [
@@ -18,5 +17,4 @@ class Command(BaseCommand):
         ]
         for f in payments:
             Payments.objects.create(name=f)
-        self.stdout.write(self.style.SUCCESS(
-            f"{len(payments)} payments created!"))
+        self.stdout.write(self.style.SUCCESS(f"{len(payments)} payments created!"))

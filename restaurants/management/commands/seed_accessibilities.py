@@ -21,6 +21,5 @@ class Command(BaseCommand):
         for f in accessibilities:
             Accessibility.objects.create(name=f)
         self.stdout.write(
-            self.style.SUCCESS(
-                f"{len(accessibilities)} accessibilities created!")
+            self.style.SUCCESS(f"{len(accessibilities)} accessibilities created!")
         )

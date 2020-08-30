@@ -25,14 +25,13 @@ class Command(BaseCommand):
         users = user_models.User.objects.all()
         restaurants = restaurant_models.Restaurant.objects.all()
         seeder.add_entity(
-            list_models.List, number, {
-                "user": lambda x: random.choice(users), },
+            list_models.List, number, {"user": lambda x: random.choice(users),},
         )
 
         created = seeder.execute()
         cleaned = flatten(list(created.values()))
         for pk in cleaned:
             list_model = list_models.List.objects.get(pk=pk)
-            to_add = restaurants[random.randint(0, 5): random.randint(6, 30)]
+            to_add = restaurants[random.randint(0, 5) : random.randint(6, 30)]
             list_model.restaurants.add(*to_add)
         self.stdout.write(self.style.SUCCESS(f"{number} lists created!"))

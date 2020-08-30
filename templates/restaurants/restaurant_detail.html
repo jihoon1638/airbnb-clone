@@ -157,7 +157,7 @@
                 {% elif is_booked_bool %}
                 <span class="cal-number bg-gray-200 text-gray-400 line-through">{{date}}</span>
                 {% else %}
-                <a href="{% url 'reservations:choose-time' restaurant.pk date.year date.month date.day %}"
+                <a href="{% url 'reservations:choose-detail' restaurant.pk date.year date.month date.day %}"
                     class="cal-number bg-gray-200 text-gray-700 hover:bg-teal-400 hover:text-white hover:font-medium">{{date}}</a>
                 {% endif %}
                 {% else %}
@@ -166,6 +166,24 @@
                 {% endfor %}
             </div>
         </div>
+        <div>
+            <span class="text-center font-semibold text-lg block mb-8">Best Menu</span>
+            <div class="bg-gray-200">
+                <span class="font-semibold text-black">{{menu_1}}</span>
+                <span class="font-light text-gray-500">{{price_1}}</span>
+            </div>
+
+            <div class="bg-gray-200">
+                <span class="font-semibold text-black">{{menu_2}}</span>
+                <span class="font-light text-gray-500">{{price_2}}</span>
+            </div>
+
+            <div class="bg-gray-200">
+                <span class="font-semibold text-black">{{menu_3}}</span>
+                <span class="font-light text-gray-500">{{price_3}}</span>
+            </div>
+        </div>
+
         {% endfor %}
         {% endif %}
         {% endif %}

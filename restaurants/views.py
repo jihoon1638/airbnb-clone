@@ -15,7 +15,7 @@ class HomeView(ListView):
 
     model = models.Restaurant
     paginate_by = 12
-    paginate_orphans = 5
+    paginate_orphans = 0
     ordering = "created"
     context_object_name = "restaurants"
 
@@ -32,63 +32,82 @@ class SearchView(View):
     """ SearchView Definition """
 
     def get(self, request):
-        form = forms.SearchForm()
-        print(form.is_valid())
-        if form.is_valid():
 
-            city = form.cleaned_data.get("city")
-            service_options = form.cleaned_data.get("service_options")
-            price = form.cleaned_data.get("price")
-            guests = form.cleaned_data.get("guests")
-            instant_book = form.cleaned_data.get("instant_book")
-            superhost = form.cleaned_data.get("superhost")
-            highlights = form.cleaned_data.get("highlights")
-            accessibilities = form.cleaned_data.get("accessibilities")
+        city = request.GET.get("city")
+        city = str.capitalize(city)
 
-            filter_args = {}
+        if city:
+            form = forms.SearchForm(request.GET)
+            if form.is_valid():
+                price = form.cleaned_data.get("price", 0)
+                guests = form.cleaned_data.get("guests", 0)
+                instant_book = form.cleaned_data.get("instant_book")
+                service_options = form.cleaned_data.get("service_options")
+                highlights = form.cleaned_data.get("highlights")
+                accessibilities = form.cleaned_data.get("accessibilities")
+                offerings = form.cleaned_data.get("offerings")
+                dining_options = form.cleaned_data.get("dining_options")
+                amenities = form.cleaned_data.get("amenities")
+                atmospheres = form.cleaned_data.get("atmosphere")
+                crowds = form.cleaned_data.get("crowd")
+                plannings = form.cleaned_data.get("planning")
+                payments = form.cleaned_data.get("payments")
 
-            if city != "Anywhere":
-                filter_args["city__startswith"] = city
+                filter_args = {}
 
-            if service_options is not None:
-                filter_args["service_options"] = service_options
+                if city != "Anywhere":
+                    filter_args["city__startswith"] = city
 
-            if price is not None:
-                filter_args["price__lte"] = price
+                if price is not None:
+                    filter_args["price__lte"] = price
 
-            if guests is not None:
-                filter_args["guests__gte"] = guests
+                if guests is not None:
+                    filter_args["guests__lte"] = guests
 
-            if instant_book is True:
-                filter_args["instant_book"] = True
+                if instant_book is True:
+                    filter_args["instant_book"] = True
 
-            if superhost is True:
-                filter_args["host__superhost"] = True
+                for service_option in service_options:
+                    filter_args["service_options"] = service_option
 
-            for highlight in highlights:
-                filter_args["highlights"] = highlight
+                for highlight in highlights:
+                    filter_args["highlights"] = highlight
 
-            for accessibility in accessibilities:
-                filter_args["accessibilities"] = accessibility
+                for accessibility in accessibilities:
+                    filter_args["accessibilities"] = accessibility
 
-            qs = models.Restaurant.objects.filter(**filter_args).order_by("-created")
+                for offering in offerings:
+                    filter_args["offerings"] = offering
 
-            paginator = Paginator(qs, 10, orphans=5)
+                for dining_option in dining_options:
+                    filter_args["dining_options"] = dining_option
 
-            page = request.GET.get("page", 1)
+                for amenity in amenities:
+                    filter_args["amenities"] = amenity
 
-            restaurants = paginator.get_page(page)
-            print(filter_args)
-            return render(
-                request,
-                "restaurants/search.html",
-                {"form": form, "restaurants": restaurants},
-            )
+                for atmosphere in atmospheres:
+                    filter_args["atmosphere"] = atmosphere
 
+                for crowd in crowds:
+                    filter_args["crowd"] = crowd
+
+                for planning in plannings:
+                    filter_args["planning"] = planning
+
+                for payment in payments:
+                    filter_args["payments"] = payment
+
+                restaurants = models.Restaurant.objects.filter(**filter_args)
+
+                return render(
+                    request,
+                    "restaurants/search.html",
+                    {"form": form, "restaurants": restaurants},
+                )
         else:
             form = forms.SearchForm()
 
-        return render(request, "restaurants/search.html", {"form": form})
+        return render(request, "restaurants/search.html", {"form": form},)
 
 
 class EditRestaurantView(user_mixins.LoggedInOnlyView, UpdateView):
@@ -98,11 +117,12 @@ class EditRestaurantView(user_mixins.LoggedInOnlyView, UpdateView):
     fields = (
         "name",
         "description",
-        "country",
         "city",
         "price",
         "address",
         "guests",
+        "beds",
+        "bedrooms",
         "baths",
         "check_in",
         "check_out",
@@ -117,6 +137,12 @@ class EditRestaurantView(user_mixins.LoggedInOnlyView, UpdateView):
         "crowd",
         "planning",
         "payments",
+        "menu_1",
+        "price_1",
+        "menu_2",
+        "price_2",
+        "menu_3",
+        "price_3",
     )
 
     def get_object(self, queryset=None):

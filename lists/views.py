@@ -8,8 +8,7 @@ from . import models
 @login_required
 def toggle_restaurant(request, restaurant_pk):
     action = request.GET.get("action", None)
-    restaurant = restaurant_models.Restaurant.objects.get_or_none(
-        pk=restaurant_pk)
+    restaurant = restaurant_models.Restaurant.objects.get_or_none(pk=restaurant_pk)
     if restaurant is not None and action is not None:
         the_list, _ = models.List.objects.get_or_create(
             user=request.user, name="My Favourites Houses"

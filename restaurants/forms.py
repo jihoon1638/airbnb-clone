@@ -86,6 +86,8 @@ class CreateRestaurantForm(forms.ModelForm):
             "address",
             "guests",
             "baths",
+            "check_in",
+            "check_out",
             "instant_book",
             "service_options",
             "highlights",
@@ -97,6 +99,12 @@ class CreateRestaurantForm(forms.ModelForm):
             "crowd",
             "planning",
             "payments",
+            "menu_1", 
+            "price_1",
+            "menu_2", 
+            "price_2",
+            "menu_3", 
+            "price_3",
         )
 
     def save(self, *args, **kwargs):

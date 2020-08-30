@@ -7,8 +7,7 @@ class Command(BaseCommand):
     help = "This command creates planning"
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            "--number", help="How many planning do you want to create")
+        parser.add_argument("--number", help="How many planning do you want to create")
 
     def handle(self, *args, **options):
         planning = [
@@ -22,5 +21,4 @@ class Command(BaseCommand):
         ]
         for f in planning:
             Planning.objects.create(name=f)
-        self.stdout.write(self.style.SUCCESS(
-            f"{len(planning)} planning created!"))
+        self.stdout.write(self.style.SUCCESS(f"{len(planning)} planning created!"))

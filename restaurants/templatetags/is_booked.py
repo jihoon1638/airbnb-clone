@@ -10,8 +10,7 @@ def is_booked(restaurant, date, time):
     if date.day == 0:
         return
     try:
-        date = datetime.datetime(
-            year=date.year, month=date.month, day=date.day)
+        date = datetime.datetime(year=date.year, month=date.month, day=date.day)
         reservation_models.BookedDay.objects.get(
             date=date, time=time, reservation__restaurant=restaurant
         )

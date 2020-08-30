@@ -23,6 +23,5 @@ class Command(BaseCommand):
         for f in serviceoptions:
             ServiceOptions.objects.create(name=f)
         self.stdout.write(
-            self.style.SUCCESS(
-                f"{len(serviceoptions)} serviceoptions created!")
+            self.style.SUCCESS(f"{len(serviceoptions)} serviceoptions created!")
         )

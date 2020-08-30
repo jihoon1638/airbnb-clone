@@ -7,8 +7,7 @@ class Command(BaseCommand):
     help = "This command creates crowd"
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            "--number", help="How many crowd do you want to create")
+        parser.add_argument("--number", help="How many crowd do you want to create")
 
     def handle(self, *args, **options):
         crowd = [

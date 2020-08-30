@@ -31,12 +31,9 @@ class Command(BaseCommand):
                 "status": lambda x: random.choice(["pending", "confirmed", "canceled"]),
                 "guest": lambda x: random.choice(users),
                 "restaurant": lambda x: random.choice(restaurants),
-                "check_in": lambda x: datetime.now(),
-                "check_out": lambda x: datetime.now()
-                + timedelta(days=random.randint(3, 25)),
+                "date": lambda x: datetime.now(),
             },
         )
 
         seeder.execute()
-        self.stdout.write(self.style.SUCCESS(
-            f"{number} reservations created!"))
+        self.stdout.write(self.style.SUCCESS(f"{number} reservations created!"))

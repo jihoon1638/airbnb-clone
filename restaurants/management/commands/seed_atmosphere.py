@@ -27,5 +27,4 @@ class Command(BaseCommand):
         ]
         for f in atmosphere:
             Atmosphere.objects.create(name=f)
-        self.stdout.write(self.style.SUCCESS(
-            f"{len(atmosphere)} atmosphere created!"))
+        self.stdout.write(self.style.SUCCESS(f"{len(atmosphere)} atmosphere created!"))
