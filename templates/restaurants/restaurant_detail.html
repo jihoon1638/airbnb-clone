@@ -172,29 +172,49 @@
         {% endif %}
         {% endif %}
 
-
-        <div>
-            <span class="text-center font-semibold text-lg block mb-8">Best Menu</span>
-            <div class="text-center mb-5 my-5">
-
-                <span
-                    class="text-lg font-semibold text-black-500 border border-gray-200 rounded-sm p-3">{{restaurant.menu_1}}</span>
-                <span
-                    class="text-lg font-light text-gray-700 border border-gray-200 rounded-sm p-3">{{restaurant.price_1}}</span>
-            </div>
-
-            <div class="text-center mb-5">
-                <span
-                    class="text-lg font-semibold text-black border border-gray-200 rounded-sm p-3">{{restaurant.menu_2}}</span>
-                <span
-                    class="text-lg font-light text-gray-500 border border-gray-200 rounded-sm p-3">{{restaurant.price_2}}</span>
-            </div>
-
-            <div class="text-center mb-5">
-                <span
-                    class="text-lg font-semibold text-black border border-gray-200 rounded-sm p-3">{{restaurant.menu_3}}</span>
-                <span
-                    class="text-lg font-light text-gray-500 border border-gray-200 rounded-sm p-3">{{restaurant.price_3}}</span>
+        <div class="my-5 w-full">
+            <div class="border border-gray-700 rounded-lg">
+                <span class="p-3 text-center font-semibold text-lg block">Best Menu</span>
+                <div class="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 mb-4">
+                    <div class=" text-center font-medium text-lg bg-white overflow-hidden border border-gray-200 p-1">
+                        {{restaurant.menu_1}}
+                    </div>
+                    <div class="text-center font-medium text-lg bg-white overflow-hidden border border-gray-200 p-1">
+                        {{restaurant.price_1}}
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 mb-4">
+                    <div class=" text-center font-medium text-lg bg-white overflow-hidden border border-gray-200 p-1">
+                        {{restaurant.menu_2}}
+                    </div>
+                    <div class="text-center font-medium text-lg bg-white overflow-hidden border border-gray-200 p-1">
+                        {{restaurant.price_2}}
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 mb-2">
+                    <div class=" text-center font-medium text-lg bg-white overflow-hidden border border-gray-200 p-1">
+                        {{restaurant.menu_3}}
+                    </div>
+                    <div class="text-center font-medium text-lg bg-white overflow-hidden border border-gray-200 p-1">
+                        {{restaurant.price_3}}
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 mb-2">
+                    <div class=" text-center font-medium text-lg bg-white overflow-hidden border border-gray-200 p-1">
+                        {{restaurant.menu_4}}
+                    </div>
+                    <div class="text-center font-medium text-lg bg-white overflow-hidden border border-gray-200 p-1">
+                        {{restaurant.price_4}}
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 mb-2">
+                    <div class=" text-center font-medium text-lg bg-white overflow-hidden border border-gray-200 p-1">
+                        {{restaurant.menu_5}}
+                    </div>
+                    <div class="text-center font-medium text-lg bg-white overflow-hidden border border-gray-200 p-1">
+                        {{restaurant.price_5}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

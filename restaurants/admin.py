@@ -58,7 +58,20 @@ class RestaurantAdmin(admin.ModelAdmin):
         ("Spaces", {"fields": ("guests", "baths")}),
         (
             "Menues",
-            {"fields": ("menu_1", "price_1", "menu_2", "price_2", "menu_3", "price_3")},
+            {
+                "fields": (
+                    "menu_1",
+                    "price_1",
+                    "menu_2",
+                    "price_2",
+                    "menu_3",
+                    "price_3",
+                    "menu_4",
+                    "price_4",
+                    "menu_5",
+                    "price_5",
+                )
+            },
         ),
         (
             "More About the Space",

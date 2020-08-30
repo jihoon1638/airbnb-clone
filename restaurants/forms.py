@@ -105,6 +105,10 @@ class CreateRestaurantForm(forms.ModelForm):
             "price_2",
             "menu_3",
             "price_3",
+            "menu_4",
+            "price_4",
+            "menu_5",
+            "price_5",
         )
 
     def save(self, *args, **kwargs):
