@@ -166,27 +166,37 @@
                 {% endfor %}
             </div>
         </div>
-        <div>
-            <span class="text-center font-semibold text-lg block mb-8">Best Menu</span>
-            <div class="bg-gray-200">
-                <span class="font-semibold text-black">{{menu_1}}</span>
-                <span class="font-light text-gray-500">{{price_1}}</span>
-            </div>
 
-            <div class="bg-gray-200">
-                <span class="font-semibold text-black">{{menu_2}}</span>
-                <span class="font-light text-gray-500">{{price_2}}</span>
-            </div>
-
-            <div class="bg-gray-200">
-                <span class="font-semibold text-black">{{menu_3}}</span>
-                <span class="font-light text-gray-500">{{price_3}}</span>
-            </div>
-        </div>
 
         {% endfor %}
         {% endif %}
         {% endif %}
+
+
+        <div>
+            <span class="text-center font-semibold text-lg block mb-8">Best Menu</span>
+            <div class="text-center mb-5 my-5">
+
+                <span
+                    class="text-lg font-semibold text-black-500 border border-gray-200 rounded-sm p-3">{{restaurant.menu_1}}</span>
+                <span
+                    class="text-lg font-light text-gray-700 border border-gray-200 rounded-sm p-3">{{restaurant.price_1}}</span>
+            </div>
+
+            <div class="text-center mb-5">
+                <span
+                    class="text-lg font-semibold text-black border border-gray-200 rounded-sm p-3">{{restaurant.menu_2}}</span>
+                <span
+                    class="text-lg font-light text-gray-500 border border-gray-200 rounded-sm p-3">{{restaurant.price_2}}</span>
+            </div>
+
+            <div class="text-center mb-5">
+                <span
+                    class="text-lg font-semibold text-black border border-gray-200 rounded-sm p-3">{{restaurant.menu_3}}</span>
+                <span
+                    class="text-lg font-light text-gray-500 border border-gray-200 rounded-sm p-3">{{restaurant.price_3}}</span>
+            </div>
+        </div>
     </div>
 </div>
 

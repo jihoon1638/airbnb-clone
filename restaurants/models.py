@@ -132,12 +132,14 @@ class Restaurant(core_models.TimeStampedModel):
     check_in = models.TimeField()
     check_out = models.TimeField()
 
-    menu_1 = models.TextField(default="")
-    price_1 = models.IntegerField(default=0)
-    menu_2 = models.TextField(default="")
-    price_2 = models.IntegerField(default=0)
-    menu_3 = models.TextField(default="")
-    price_3 = models.IntegerField(default=0)
+    menu_1 = models.CharField(max_length=150)
+    price_1 = models.IntegerField()
+
+    menu_2 = models.CharField(max_length=150)
+    price_2 = models.IntegerField()
+
+    menu_3 = models.CharField(max_length=150)
+    price_3 = models.IntegerField()
 
     instant_book = models.BooleanField(default=False)
     host = models.ForeignKey(

@@ -99,11 +99,11 @@ class CreateRestaurantForm(forms.ModelForm):
             "crowd",
             "planning",
             "payments",
-            "menu_1", 
+            "menu_1",
             "price_1",
-            "menu_2", 
+            "menu_2",
             "price_2",
-            "menu_3", 
+            "menu_3",
             "price_3",
         )
 
