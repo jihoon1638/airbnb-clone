@@ -15,16 +15,20 @@
             {% for ro in restaurant %}
             {% for i in reservation %}
             {% if ro.name == i.restaurant.name %}
-            {% if i.is_finished %}
+            {% if not i.is_finished %}
             <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                <a href="{% url 'reservations:detail' i.restaurant.pk %}">
+                <a href="{% url 'reservations:detail' i.pk %}">
                     <div class="flex items-end justify-end h-56 w-full bg-cover"
                         style="background-image: url({{i.restaurant.first_photo}});">
                     </div>
                     <div>
-                        <span class="mx-2 my-1 flex flex-col">
+                        <span class="mx-2 my-5">
                             {{i.restaurant.name}}
                         </span>
+                        <span
+                            class="ml-10 text-right {% if i.status == 'pending' %} text-yellow-500 {% elif i.status == 'canceled' %} text-red-600 {% else %} text-teal-600 {% endif %}">{{i.get_status_display}}</span>
+                    </div>
+                    <div>
                         <span class="mx-2 my-1 flex flex-col">
                             Reservation Date : {{i.date}}
                         </span>
@@ -39,13 +43,15 @@
                         </span>
                     </div>
 
-                    {% endif %}
-                    {% endif %}
-                    {% endfor %}
-                    {% endfor %}
+
+
                 </a>
 
             </div>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
         </div>
     </div>
 
@@ -57,14 +63,18 @@
             {% if ro.name == i.restaurant.name %}
             {% if i.is_finished %}
             <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                <a href="{% url 'reservations:detail' i.restaurant.pk %}">
+                <a href="{% url 'reservations:detail' i.pk %}">
                     <div class="flex items-end justify-end h-56 w-full bg-cover"
                         style="background-image: url({{i.restaurant.first_photo}});">
                     </div>
                     <div>
-                        <span class="mx-2 my-1 flex flex-col">
+                        <span class="mx-2 my-5">
                             {{i.restaurant.name}}
                         </span>
+                        <span
+                            class="ml-10 text-right {% if i.status == 'pending' %} text-yellow-500 {% elif i.status == 'canceled' %} text-red-600 {% else %} text-teal-600 {% endif %}">{{i.get_status_display}}</span>
+                    </div>
+                    <div>
                         <span class="mx-2 my-1 flex flex-col">
                             Reservation Date : {{i.date}}
                         </span>
@@ -79,12 +89,14 @@
                         </span>
                     </div>
 
-                    {% endif %}
-                    {% endif %}
-                    {% endfor %}
-                    {% endfor %}
+
+
                 </a>
             </div>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
         </div>
     </div>
 </div>

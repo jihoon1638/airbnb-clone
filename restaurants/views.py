@@ -1,7 +1,6 @@
 from django.http import Http404
 from django.views.generic import ListView, DetailView, View, UpdateView, FormView
 from django.shortcuts import render, redirect, reverse
-from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -39,9 +38,9 @@ class SearchView(View):
         if city:
             form = forms.SearchForm(request.GET)
             if form.is_valid():
-                price = form.cleaned_data.get("price", 0)
+                name = form.cleaned_data.get("name")
+                name = str.capitalize(name)
                 guests = form.cleaned_data.get("guests", 0)
-                instant_book = form.cleaned_data.get("instant_book")
                 service_options = form.cleaned_data.get("service_options")
                 highlights = form.cleaned_data.get("highlights")
                 accessibilities = form.cleaned_data.get("accessibilities")
@@ -58,14 +57,11 @@ class SearchView(View):
                 if city != "Anywhere":
                     filter_args["city__startswith"] = city
 
-                if price is not None:
-                    filter_args["price__lte"] = price
+                if name != "None":
+                    filter_args["name__startswith"] = name
 
                 if guests is not None:
                     filter_args["guests__lte"] = guests
-
-                if instant_book is True:
-                    filter_args["instant_book"] = True
 
                 for service_option in service_options:
                     filter_args["service_options"] = service_option
@@ -118,15 +114,8 @@ class EditRestaurantView(user_mixins.LoggedInOnlyView, UpdateView):
         "name",
         "description",
         "city",
-        "price",
         "address",
         "guests",
-        "beds",
-        "bedrooms",
-        "baths",
-        "check_in",
-        "check_out",
-        "instant_book",
         "service_options",
         "highlights",
         "accessibilities",

@@ -5,12 +5,8 @@ from . import models
 class SearchForm(forms.Form):
 
     city = forms.CharField(required=False)
-    price = forms.IntegerField(required=False)
+    name = forms.CharField(initial="None", required=False)
     guests = forms.IntegerField(required=False)
-    instant_book = forms.ChoiceField(
-        choices=[("True", "POSSIBLE"), ("False", "IMPOSIBLE")],
-        widget=forms.RadioSelect,
-    )
     service_options = forms.ModelMultipleChoiceField(
         required=False,
         queryset=models.ServiceOptions.objects.all(),
@@ -82,13 +78,8 @@ class CreateRestaurantForm(forms.ModelForm):
             "name",
             "description",
             "city",
-            "price",
             "address",
             "guests",
-            "baths",
-            "check_in",
-            "check_out",
-            "instant_book",
             "service_options",
             "highlights",
             "accessibilities",

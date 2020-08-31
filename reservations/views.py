@@ -29,8 +29,6 @@ def create(request, restaurant, year, month, day, time, numOfGuests):
             {"restaurant": restaurant.pk, "year": year, "month": month, "day": day},
         )
 
-
-"""
     except models.BookedDay.DoesNotExist:
         reservation = models.Reservation.objects.create(
             guest=request.user,
@@ -40,9 +38,7 @@ def create(request, restaurant, year, month, day, time, numOfGuests):
             numOfGuests=numOfGuests,
         )
         messages.success(request, "Reserved Successfully")
-        return redirect(
-            reverse("reservations:detail", kwargs={"restaurant": restaurant.pk})
-        )"""
+        return redirect(reverse("reservations:detail", kwargs={"pk": reservation.pk}))
 
 
 @login_required
@@ -72,8 +68,8 @@ def choose_detail(request, restaurant, year, month, day):
         )
 
 
-def reservation_detail(request, restaurant):
-    reservation = models.Reservation.objects.get(restaurant=restaurant)
+def reservation_detail(request, pk):
+    reservation = models.Reservation.objects.get(pk=pk)
     if not reservation or (
         reservation.guest != request.user
         and reservation.restaurant.host != request.user
@@ -85,8 +81,8 @@ def reservation_detail(request, restaurant):
     )
 
 
-def edit_reservation(request, restaurant, verb):
-    reservation = models.Reservation.objects.get_or_none(restaurant=restaurant)
+def edit_reservation(request, pk, verb):
+    reservation = models.Reservation.objects.get_or_none(pk=pk)
     if not reservation or (
         reservation.guest != request.user
         and reservation.restaurant.host != request.user
@@ -96,9 +92,7 @@ def edit_reservation(request, restaurant, verb):
         reservation.status = models.Reservation.STATUS_CONFIRMED
     elif verb == "cancel":
         reservation.status = models.Reservation.STATUS_CANCELED
-        """
         models.BookedDay.objects.filter(reservation=reservation).delete()
-        """
     reservation.save()
     messages.success(request, "Reservation Updated")
-    return redirect(reverse("reservations:detail", kwargs={"restaurant": restaurant}))
+    return redirect(reverse("reservations:detail", kwargs={"pk": reservation.pk}))

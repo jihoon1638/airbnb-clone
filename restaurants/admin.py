@@ -32,17 +32,13 @@ class PhotoInline(admin.TabularInline):
     model = models.Photo
 
 
-class MenuInline(admin.TabularInline):
-    model = models.Menu
-
-
 @admin.register(models.Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
 
     """ Restaurant Admin Definition """
 
     inlines = (PhotoInline,)
-    inlines = (MenuInline,)
+
     fieldsets = (
         (
             "Basic Info",
@@ -52,9 +48,25 @@ class RestaurantAdmin(admin.ModelAdmin):
                     "description",
                     "city",
                     "address",
-                    "price",
                     "service_options",
                     "guests",
+                )
+            },
+        ),
+        (
+            "Menues",
+            {
+                "fields": (
+                    "menu_1",
+                    "price_1",
+                    "menu_2",
+                    "price_2",
+                    "menu_3",
+                    "price_3",
+                    "menu_4",
+                    "price_4",
+                    "menu_5",
+                    "price_5",
                 )
             },
         ),
@@ -80,20 +92,13 @@ class RestaurantAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "city",
-        "price",
         "guests",
-        "baths",
-        "check_in",
-        "check_out",
-        "instant_book",
         "count_highlights",
         "count_photos",
         "total_rating",
     )
 
     list_filter = (
-        "instant_book",
-        "host__superhost",
         "service_options",
         "highlights",
         "accessibilities",
@@ -128,14 +133,3 @@ class PhotoAdmin(admin.ModelAdmin):
         return mark_safe(f'<img width="50px" src="{obj.file.url}" />')
 
     get_thumbnail.short_description = "Thumbnail"
-
-
-@admin.register(models.Menu)
-class MenuAdmin(admin.ModelAdmin):
-
-    """ Menu Admin Definition """
-
-    list_display = ("__str__", "get_Menu")
-
-    def get_Menu(self, obj):
-        return mark_sage()
