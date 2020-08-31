@@ -24,13 +24,12 @@ class Command(BaseCommand):
             restaurants_models.Restaurant,
             number,
             {
-                "name": "표선칼국수",
+                "name": lambda x: "표선칼국수",
                 "city": "제주도",
                 "address": "제주 서귀포시 표선면 민속해안로 578-3",
                 "host": lambda x: random.choice(all_users),
                 "service_options": lambda x: random.choice(service_options),
                 "guests": lambda x: random.randint(1, 3),
-                "price": lambda x: random.randint(5000, 7000),
             },
         )
         created_photos = seeder.execute()
@@ -51,7 +50,7 @@ class Command(BaseCommand):
                 restaurants_models.Photo.objects.create(
                     caption=seeder.faker.sentence(),
                     restaurant=restaurant,
-                    file=f"room_photos/pyoseon_{i}.jpg",
+                    file=f"restaurant_photos/pyoseon_{i}.jpg",
                 )
             for a in highlights:
                 magic_number = random.randint(1, 20)
