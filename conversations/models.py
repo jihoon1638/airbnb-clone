@@ -4,11 +4,7 @@ from core import models as core_models
 
 class Conversation(core_models.TimeStampedModel):
 
-    """ Conversation Model Definition """
-
-    participants = models.ManyToManyField(
-        "users.User", related_name="converstation", blank=True
-    )
+    participants = models.ManyToManyField("users.User", blank=True)
 
     def __str__(self):
         usernames = []
@@ -28,8 +24,6 @@ class Conversation(core_models.TimeStampedModel):
 
 
 class Message(core_models.TimeStampedModel):
-
-    """ Message Model Definition """
 
     message = models.TextField()
     user = models.ForeignKey(

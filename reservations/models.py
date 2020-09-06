@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from core import models as core_models
 
 
@@ -22,9 +23,9 @@ class Reservation(core_models.TimeStampedModel):
     STATUS_CANCELED = "canceled"
 
     STATUS_CHOICES = (
-        (STATUS_PENDING, "Pending"),
-        (STATUS_CONFIRMED, "Confirmed"),
-        (STATUS_CANCELED, "Canceled"),
+        (STATUS_PENDING, _("Pending")),
+        (STATUS_CONFIRMED, _("Confirmed")),
+        (STATUS_CANCELED, _("Canceled")),
     )
 
     status = models.CharField(
@@ -67,7 +68,6 @@ class Reservation(core_models.TimeStampedModel):
         if self.pk is None:
             date = self.date
             time = self.time
-
             existing_booked_day = BookedDay.objects.filter(
                 date=date, time=time
             ).exists()

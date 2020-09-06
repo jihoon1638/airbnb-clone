@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static i18n %}
 {% block page_title %}
 Reservation
 {% endblock page_title %}
@@ -71,14 +71,12 @@ Reservation
         </div>
 
 
-        <div class="w-full border border-gray-700 rounded-lg mt-2">
-            <fieldset>
-                <span class="p-3 text-center font-semibold text-lg block">Number Of Guests</span>
-                <input type="number" name="numOfGuests">
-            </fieldset>
-        </div>
-        <button class="btn-link mt-10" type='submit'>Make Reservation</button>
 
+        <fieldset>
+            <span class="p-3 text-center font-semibold text-lg block">Number Of Guests</span>
+            <input type="number" name="numOfGuests">
+        </fieldset>
+        <button class="btn-link mt-10" type='submit'>Make Reservation</button>
     </form>
 </div>
 {% endblock content %}

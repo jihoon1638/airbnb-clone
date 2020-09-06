@@ -32,11 +32,6 @@ class User(AbstractUser):
         (LANGUAGE_KOREAN, _("Korean")),
     )
 
-    CURRENCY_USD = "usd"
-    CURRENCY_KRW = "krw"
-
-    CURRENCY_CHOICES = ((CURRENCY_USD, "USD"), (CURRENCY_KRW, "KRW"))
-
     LOGIN_EMAIL = "email"
     LOGING_KAKAO = "kakao"
 
@@ -45,7 +40,9 @@ class User(AbstractUser):
         (LOGING_KAKAO, "Kakao"),
     )
 
-    first_name = models.CharField(_("first name"), max_length=30, blank=True)
+    first_name = models.CharField(
+        _("first name"), max_length=30, blank=True, default="Unnamed User"
+    )
     avatar = models.ImageField(upload_to="avatars", blank=True)
     gender = models.CharField(
         _("gender"), choices=GENDER_CHOICES, max_length=10, blank=True
@@ -59,10 +56,7 @@ class User(AbstractUser):
         blank=True,
         default=LANGUAGE_KOREAN,
     )
-    currency = models.CharField(
-        choices=CURRENCY_CHOICES, max_length=3, blank=True, default=CURRENCY_KRW
-    )
-    superhost = models.BooleanField(default=False)
+
     email_verified = models.BooleanField(default=False)
     email_secret = models.CharField(max_length=20, default="", blank=True)
     login_method = models.CharField(
@@ -81,7 +75,7 @@ class User(AbstractUser):
                 "emails/verify_email.html", {"secret": secret}
             )
             send_mail(
-                _("Verify Airbnb Account"),
+                _("Verify Your Account"),
                 strip_tags(html_message),
                 settings.EMAIL_FROM,
                 [self.email],
